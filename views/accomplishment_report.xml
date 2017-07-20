@@ -1,0 +1,211 @@
+<odoo>
+	<data>
+
+		<record model="ir.actions.act_window" id="accomplishment_report_action">
+            <field name="name">Project Accomplishment Report</field>
+            <field name="res_model">philsteel.pas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create your first report</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="accomplishment_tree_view">
+            <field name="name">pareport.tree</field>
+            <field name="model">philsteel.pas</field>
+            <field name="arch" type="xml">
+               <tree string="Project Accomplishment Report">
+                    <field name="name" />
+                    <field name="customer_name" />
+                    <field name="statuss" />
+                    <field name="project_sector" />
+                    <field name="assignedTo" />
+                    <field name="assigned_by" />
+                    <field name="seen_datetime" />
+                    <field name="read_datetime" />
+               </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="accomplishment_search_view">
+            <field name="name">pas.search</field>
+            <field name="model">philsteel.pas</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="customer_name" />
+                    <field name="statuss" />
+                    <field name="project_sector" />
+                    <field name="assignedTo" />
+                    <field name="assigned_by" />
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="accomplishment_form_view">
+            <field name="name">pareport.form</field>
+            <field name="model">philsteel.pas</field>
+            <field name="arch" type="xml">
+                <form string="Project Accomplishment Report">
+                    <header>
+                        <button name="action_approved" groups="philsteel.group_supervisor,philsteel.group_manager" string="Approved" type="object" class="btn-primary" attrs="{'invisible': ['|','|',('statuss','!=','draft')]}" />
+                        <button name="action_unlock" groups="philsteel.group_supervisor,philsteel.group_manager" string="Change to Draft" type="object" class="btn-primary" attrs="{'invisible': ['|','|',('statuss','!=','approved')]}" />
+                        <field name="statuss" widget="statusbar" options="{'fold_field': 'fold'}" />
+                    </header>
+                    <sheet>
+                        <group string="General">
+                                <field name="name" attrs="{'readonly': ['|','|',('statuss','=','approved')]}"/>
+                                <field name="customer_name" attrs="{'readonly': ['|','|',('statuss','=','approved')]}"/>
+                                <field name="location" attrs="{'readonly': ['|','|',('statuss','=','approved')]}"/>
+                            <group>
+                                <field name="ic_no" attrs="{'readonly': ['|','|',('statuss','=','approved')]}"/>
+                            </group>
+                            <group>
+                                <field name="sc_no" attrs="{'readonly': ['|','|',('statuss','=','approved')]}"/>
+                            </group>
+                                <field name="project_sector" attrs="{'readonly': ['|','|',('statuss','=','approved')]}"/>
+                            <group>
+                                <field name="duration" attrs="{'readonly': ['|','|',('statuss','=','approved')]}" />
+                                <field name="date_start" attrs="{'readonly': ['|','|',('statuss','=','approved')]}" />
+                            </group>
+                            <group>
+                                <field name="date_complete" attrs="{'readonly': ['|','|',('statuss','=','approved')]}" />
+                                <field name="sales_engineer" attrs="{'readonly': ['|','|',('statuss','=','approved')]}" />
+                            </group>
+                        </group>
+                        <group string="Accomplishments" >
+                            <notebook>
+                                <page string="Accomplishments">
+                                    <group>
+                                        <field name="accomplisment" attrs="{'readonly': ['|','|',('statuss','=','approved')]}" mode="tree">
+                                            <tree string="Accomplishments" editable="bottom">
+                                                <field name="name" />
+                                                <field name="unit" />
+                                                <field name="qty" />
+                                                <field name="weight_factor" />
+                                                <field name="qty_prev" />
+                                                <field name="percent_prev" />
+                                                <field name="qty_thisperiod" />
+                                                <field name="percent_thisperiod" />
+                                                <field name="qty_todate" />
+                                                <field name="percent_todate" />
+                                                <field name="weight" />
+                                            </tree>
+                                            <form string="Center Form">
+                                                <sheet>
+                                                    <group>
+                                                        <field name="name" />
+                                                        <field name="unit" />
+                                                    </group>
+                                                    <group>
+                                                        <field name="qty" />
+                                                        <field name="weight_factor" />
+                                                    </group>
+                                                    <group string="Previous">
+                                                        <field name="qty_prev" />
+                                                        <field name="percent_prev" />
+                                                    </group>
+                                                    <group string="This Period">
+                                                        <field name="qty_thisperiod" />
+                                                        <field name="percent_thisperiod" />
+                                                    </group>
+                                                    <group string="To Date">
+                                                        <field name="qty_todate" />
+                                                        <field name="percent_todate" />
+                                                        <field name="weight" />
+                                                    </group>
+                                                    <group string="Remarks">
+                                                        <field name="remarks" />
+                                                    </group>
+                                                </sheet>
+                                            </form>
+                                        </field>
+                                    </group>
+                                </page>
+                                
+                                <page string="Jobsite">
+                                    <group><field name="site_sketch" widget="image" attrs="{'readonly': ['|','|',('statuss','=','approved')]}"/></group>
+                                    <group><field name="site_address" string='Complete Project Site Address' attrs="{'readonly': ['|','|',('statuss','=','approved')]}" /></group>
+                                
+                                </page>
+                                <page string="Accomplishment Images">
+                                    <group><field name="accomplishmentimages" attrs="{'readonly': ['|','|',('statuss','=','approved')]}"/></group>
+                                </page>
+                                <page string="Assign Information">
+                                <group><field name="assignedTo" groups="philsteel.group_supervisor,philsteel.group_manager" attrs="{'readonly': ['|','|',('statuss','=','approved')]}" /></group>
+                                <group><field name="assigned_by" attrs="{'readonly': ['|','|',('statuss','=','approved')]}" /></group>
+                            </page>
+                                <page string="Signatory">
+                                    <group><field name="proj_incharge" attrs="{'readonly': ['|','|',('statuss','=','approved')]}" /></group>
+                                    <group><field name="client_rep" attrs="{'readonly': ['|','|',('statuss','=','approved')]}" /></group>
+                                    <group><field name="seen_datetime" attrs="{'readonly': ['|','|',('statuss','=','approved')]}" /></group>
+                                    <group><field name="read_datetime" attrs="{'readonly': ['|','|',('statuss','=','approved')]}" /></group>
+                                </page>
+                            </notebook>
+                            <!-- <group>
+                                <field name="inspection_date" />
+                            </group>
+                            <group>
+                                <field name="wheather" />
+                            </group>
+                            <field name="location" />
+                            <group>
+                                <field name="ic_number" />
+                                <field name="sc_number" />
+                            </group>
+                            <group>
+                                <field name="arrival_time" />
+                                <field name="departure_time" />
+                            </group>
+                            <field name="accomplishment_date" />
+                            <group>
+                                <p>Scope of Work:</p>
+                            </group>
+                            <group>
+                                <field name="roofing" />
+                                <field name="deckings" />
+                                <field name="cladding" />
+                                <field name="other" />
+                            </group> -->
+                        </group>
+                        <!-- <notebook>
+                            <page string="Man Power">
+                                <field name="man_power" />
+                            </page>
+                            <page string="Tools and Equipments">
+                                <field name="tool_equipment" />
+                            </page>
+                             <page string="Work Scope">
+                                <field name="work_scope" />
+                            </page>
+                            <page string="Concerns">
+                                <group>
+                                    <field name="activity" />
+                                </group>
+                                <group>
+                                    <field name="material" />
+                                </group>
+                                <group >
+                                    <field name="other_concerns" />
+                                </group>
+                        
+                            </page>
+                            <page string="Signatory">
+                                <group >
+                                    <group>
+                                        <field name="prepared_by" />
+                                    </group>
+                                    <group>
+                                    <field name="approved_by" />
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook> -->
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+	</data>
+</odoo>

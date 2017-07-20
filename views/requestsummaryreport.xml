@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report-->
+<odoo>
+<template id="report_rfam_summary_document">
+            
+            <div class="page">
+                <center><div><h3><b>Philmetal Products, Inc.</b></h3>
+                <h5>Philsteel Tower, 140 Amorsolo St., Legaspi Village, Makati City</h5></div></center><br />
+               
+                    <center><h3><b>____________ Sector</b></h3></center>
+                <br />
+                <center><h4><b>RFAM SUMMARY FOR ____________ </b></h4></center>
+                <table class="table table-condensed" style="width:100%; font-size:12px; border:1px solid black">
+                    <tr style="width:100%;">
+                        <th style="width:10%;"> RFM No. </th>
+                        <th style="width:10%;"> Client </th>
+                        <th style="width:10%;"> Project </th>
+                        <th style="width:10%;"> Product Profile </th>
+                        <th style="width:10%;"> PIC </th>
+                        <th style="width:10%;"> Sales Rep </th>
+                        <th style="width:10%;"> Sales Contract </th>
+                        <th style="width:10%;"> Installation Contract </th>
+                        <th style="width:10%;"> Labor Award </th>
+                        <th style="width:10%;"> Project Type </th>
+                    </tr>
+                </table>
+                <table class="table table-condensed" style="width:100%; font-size:12px; border:1px solid black">
+                    <tr style="width:100%;">
+                        <th style="width:10%;">  </th>
+                        <th style="width:20%;"> Location </th>
+                        <th style="width:10%;"> Scope of Work </th>
+                        <th style="width:10%;">  </th>
+                        <th style="width:10%;">  </th>
+                        <th style="width:5%;"> SC No. </th>
+                        <th style="width:5%;"> Amount </th>
+                        <th style="width:5%;"> IC No. </th>
+                        <th style="width:5%;"> Amount </th>
+                        <th style="width:10%;"> Foreman</th>
+                        <th style="width:10%;">  </th>
+                    </tr>
+                    </table>
+                    <table class="table table-condensed" style="width:100%; font-size:12px; border:1px solid black">
+                        <t t-set="totalsc" t-value="0"/>
+                        <t t-set="totalic" t-value="0"/>
+                        <t t-set="totallabor_award" t-value="0"/>
+
+                     <t t-foreach="docs" t-as="doc">
+                    <tr style="border:1px solid black; width:100%;">
+                                    <td style="border:1px solid black; width:10%;"><span t-esc="doc.request_number"/></td> 
+
+                                    <td style="border:1px solid black; width:10%;"><span t-esc="doc.customer"/> / <span t-esc="doc.name.name"/></td> 
+                                    <td style="border:1px solid black; width:10%;"><span t-esc="doc.product_profile.name.name"/></td> 
+                                    <td style="border:1px solid black; width:10%;"><span t-esc="doc.proj_incharge.name"/></td> 
+                                    <td style="border:1px solid black; width:10%;"><span t-esc="doc.client_rep.name"/></td> 
+                                    <td style="border:1px solid black; width:5%;"><span t-esc="doc.sc_number"/></td> 
+                                    <td style="border:1px solid black; width:5%;"><span t-esc="doc.sc_amount"/></td> 
+                                    <t t-set="totalsc" t-value="totalsc + doc.sc_amount"/>
+                                    
+                                    <td style="border:1px solid black; width:5%;"><span t-esc="doc.ic_number"/></td> 
+                                    <td style="border:1px solid black; width:5%;"><span t-esc="doc.ic_amount"/></td> 
+                                    <t t-set="totalic" t-value="totalic + doc.ic_amount"/>
+                                    <td style="border:1px solid black; width:10%;"><span t-esc="doc.labor_award"/></td> 
+                                    <t t-set="totallabor_award" t-value="totallabor_award + doc.labor_award"/>
+                                    <td style="border:1px solid black; width:10%;"><span t-esc="doc.project_type"/></td> 
+
+
+                                    
+                                </tr>
+                                
+                                <tr style="border:1px solid black; width:100%;">
+                                    <td style="border:1px solid black; width:10%;"></td> 
+                                    <td style="border:1px solid black; width:20%;"><span t-esc="doc.location"/></td> 
+                                    <td style="border:1px solid black; width:10%;"><span t-esc="doc.work_scope.name"/></td> 
+                                    <td style="border:1px solid black; width:10%;"></td> 
+                                    <td style="border:1px solid black; width:10%;"></td> 
+                                    <td style="border:1px solid black; width:5%;"></td> 
+                                    <td style="border:1px solid black; width:5%;"></td> 
+                                    <td style="border:1px solid black; width:5%;"></td> 
+                                    <td style="border:1px solid black; width:5%;"></td>  
+                                    <td style="border:1px solid black; width:10%;"><span t-esc="doc.fore_man.name"/></td> 
+                                    <td style="border:1px solid black; width:10%;"></td> 
+                                    
+                                </tr> 
+                               
+                    </t>     
+
+                </table>
+                <table  class="table table-bordered" style="width:100%; font-size:12px;">
+                    
+                    <tr style="border:1px solid black; width:100%;">
+                                    <td style="border:1px solid black; width:10%;">TOTAL</td> 
+                                    <td style="border:1px solid black; width:20%;"></td> 
+                                    <td style="border:1px solid black; width:10%;"></td> 
+                                    <td style="border:1px solid black; width:10%;"></td> 
+                                    <td style="border:1px solid black; width:10%;"></td> 
+                                    <td style="border:1px solid black; width:5%;"></td> 
+                                    <td style="border:1px solid black; width:5%;"><t t-esc="totalsc"  /></td> 
+                                    <td style="border:1px solid black; width:5%;"></td> 
+                                    <td style="border:1px solid black; width:5%;"><t t-esc="totalic"  /></td>  
+                                    <td style="border:1px solid black; width:10%;"><t t-esc="totallabor_award"  /></td> 
+                                    <td style="border:1px solid black; width:10%;"></td> 
+                                    
+                                </tr> 
+                   
+                </table>
+               
+                <table  class="table table-bordered" style="width:100%; font-size:12px;">
+                    
+                    <tr>
+                        <td><b> Accomplished By</b></td>
+                        <td><b> Approved By </b></td>
+                    </tr> 
+                   
+                </table>
+            </div>
+</template>
+</odoo>

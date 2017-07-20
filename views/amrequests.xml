@@ -1,0 +1,189 @@
+<odoo>
+	<data>
+		
+		<record model="ir.ui.view" id="rfam_form_view">
+            <field name="name">RFM</field>
+            <field name="model">philsteel.amrequests</field>
+            <field name="arch" type="xml">
+                <form string="RFAM Form">
+                    <header>
+                        <button name="action_approved" groups="philsteel.group_manager" string="Approved" type="object" class="btn-primary" attrs="{'invisible': ['|','|',('statuss','!=','draft')]}" />
+                        <button name="action_ongoing" groups="philsteel.group_manager" string="Ongoing" type="object" class="btn-primary" attrs="{'invisible': ['|','|',('statuss','!=','approved')]}" />
+                        <button name="action_done" groups="philsteel.group_manager" string="Done" type="object" class="btn-primary" attrs="{'invisible': ['|','|',('statuss','!=','ongoing')]}" />
+                        <button name="action_unlock" groups="philsteel.group_manager" string="Change to Draft" type="object" class="btn-primary" attrs="{'invisible': ['|','|',('statuss','!=','done')]}" />
+                        <field name="statuss" widget="statusbar" options="{'fold_field': 'fold'}" />
+                    </header>
+                    <sheet>
+                        <!--<group string="Sketch">
+                            <field name="image" widget="image"/>
+                        </group>-->
+                        <group string="General">
+                            <group><field name="name" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/></group>
+                            <group><field name="status" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                            <group><field name="customer" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                            <group>
+                                <field name="request_number" attrs="{'readonly': ['|','|',('statuss','=','done')]}" />
+                            </group>
+                            <group><field name="location" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/></group>
+                            <group>
+                                <field name="project_type" attrs="{'readonly': ['|','|',('statuss','=','done')]}" />
+                            </group>
+                            <field name="project_site_address" string='Complete Project Site Address' attrs="{'readonly': ['|','|',('statuss','=','done')]}" />
+                            <field name="project_sector" attrs="{'readonly': ['|','|',('statuss','=','done')]}" />
+
+                            <field name="general_contractor" attrs="{'readonly': ['|','|',('statuss','=','done')]}" />
+                        </group>
+                        <notebook>
+                            <page string="Contact Details">
+                                <group> <field name="jobsite_contact_number" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                                <group> <field name="contact_person_at_site" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                            </page>
+                            <page string="References" >
+                                <group>
+                                    <field name="sc_number" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/>
+                                    <field name="ic_number" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/>
+                                    <field name="sq_number" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/>
+                                    <field name="iq_number" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/>
+                                </group>
+                            </page>
+                            <page string="Pre Installation">
+                                <group>
+                                <field name="floors_available_for_measurement" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/>
+                                <field name="frames_trusses_installed" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/>
+                                <field name="beam_installed" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/>
+                                <field name="purlins_installed" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/>
+                                <field name="sogrod_installed" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/>
+                                </group>
+                            </page>
+                            <page string="Request for Measurement">
+                                <group><field name="ready_for_measurement_date" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/></group>
+                                <group string="Request for measurement for: ">
+                                        <group><field name="rfm_quotation" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/></group>
+                                        <group><field name="rfm_contract" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/></group>
+                                        <group><field name="rfm_fabrication" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/></group>
+                                        <group><field name="rfm_tech1assistance" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/></group>
+                                        <group><field name="rfm_others" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/></group>
+                                </group>
+                            </page>
+                            <page string="Product Profile">
+                                <group><field name="product_profile" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                            </page>
+                            <page string="Scope of Work">
+                                <group><field name="work_scope" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                            </page>
+                            <page string="Result of Measurement">
+                                <group><field name="illustrations" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/></group>
+                            </page>
+                            <page string="Jobsite">
+                                <group><field name="project_site_sketch" widget="image" attrs="{'readonly': ['|','|',('statuss','=','done')]}"/></group>
+                                <group><field name="project_site_address" string='Complete Project Site Address' attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                                
+                            </page>
+                            <page string="Assign Information">
+                                <group><field name="assignedTo" groups="philsteel.group_supervisor,philsteel.group_manager" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                                <group><field name="assigned_by" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                            </page>
+                            <page string="Signatory">
+                                <group>
+                                    <!-- <field name="ready_for_measurement_date" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /> -->
+                                    <field name="date_filed" attrs="{'readonly': ['|','|',('statuss','=','done')]}" />
+                                    <field name="accomplished_by" attrs="{'readonly': ['|','|',('statuss','=','done')]}" />
+                                </group>
+                                <group>
+                                    <field name="approved_by" attrs="{'readonly': ['|','|',('statuss','=','done')]}" />
+                                    <field name="seen_datetime" attrs="{'readonly': ['|','|',('statuss','=','done')]}" />
+                                    <field name="read_datetime" attrs="{'readonly': ['|','|',('statuss','=','done')]}" />
+                                </group>
+                            </page>
+                            <page string="Other Project Information">
+                                <group><field name="proj_incharge" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                                <group><field name="area_manager" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                                <group><field name="fore_man" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                                <group><field name="client_rep" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                                <group><field name="ic_amount" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                                <group><field name="sc_amount" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                                <group><field name="labor_award" attrs="{'readonly': ['|','|',('statuss','=','done')]}" /></group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    <!--
+        <record model="ir.ui.view" id="center_tree_view">
+            <field name="name">center.tree</field>
+            <field name="model">odoo_medical.center</field>
+            <field name="arch" type="xml">
+               <tree string="Centers">
+                   <field name="name"/>
+                   <field name="contact_number"/>
+                   <field name="address"/>
+               </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="center_search_view">
+            <field name="name">center.search</field>
+            <field name="model">odoo_medical.center</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="contact_number"/>
+                    <field name="address"/>
+                </search>
+            </field>
+        </record>
+    -->
+
+        <record model="ir.actions.act_window" id="measurement_request_action">
+            <field name="name">RFM</field>
+            <field name="res_model">philsteel.amrequests</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create your first request</p>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="measurement_request_tree_view">
+            <field name="name">measurement_request.tree</field>
+            <field name="model">philsteel.amrequests</field>
+            <field name="arch" type="xml">
+               <tree string="AMRequests">
+                    <field name="name" />
+                    <field name="customer" />
+                    <field name="project_type" />
+                    <field name="project_sector" />
+                    <field name="assignedTo" />
+                    <field name="assigned_by" />
+                    <field name="statuss" />
+                    <field name="seen_datetime" />
+                    <field name="read_datetime" />
+               </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="measurement_request_search_view">
+            <field name="name">amrequests.search</field>
+            <field name="model">philsteel.amrequests</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="customer" />
+                    <field name="project_type" />
+                    <field name="assigned_by" />
+                    <field name="statuss" />
+                    <field name="assignedTo" />
+                    <field name="assigned_by" />
+                    <field name="project_sector" />
+                    <field name="date_filed" />
+                    <field name="ready_for_measurement_date" />
+                </search>
+            </field>
+        </record>
+
+
+	</data>
+</odoo>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report-->
+<odoo>
+<template id="report_inspection_document">
+        <div class="page">
+            <center><div><h3><b>Philmetal Products, Inc.</b></h3>
+                <h5>Philsteel Tower, 140 Amorsolo St., Legaspi Village, Makati City</h5></div></center><br />
+                <center><h4><b><u>PROJECT INSPECTION AND SAFETY REPORT</u></b></h4></center>
+                <table class="table table-borderless" style="width:100%; font-size:12px;">
+                    
+                    <t t-foreach="docs" t-as="doc">
+                    <tr class="table table-borderless">
+                        <td><b> Customer Name : </b><span t-esc="doc.client"/></td>
+                        <td><b> Date of Inspection : </b><span t-esc="doc.inspection_date"/></td>      
+                    </tr> 
+                    <tr class="table table-borderless">
+                        <td><b> Project Name : </b><span t-esc="doc.name.name"/></td>  
+                        <td><b> Location : </b><span t-esc="doc.location"/></td>
+                    </tr>   
+                    <tr class="table table-borderless">
+                        <td><b> IC No : </b><span t-esc="doc.ic_number"/></td>
+                        <td><b> Time of Arrival : </b><span t-esc="doc.arrival_time"/></td>
+                            
+                    </tr> 
+                     <tr class="table table-borderless">
+                        <td><b> SC No : </b><span t-esc="doc.sc_number"/></td>
+                        <td><b> Time of Departure : </b><span t-esc="doc.departure_time"/></td> 
+                            
+                    </tr> 
+                    <tr class="table table-borderless">
+                        <td><b> Weather: </b><span t-esc="doc.wheather"/></td>  
+                        <td><b> I. Overall Accomplishment Date: </b><span t-esc="doc.accomplishment_date"/></td> 
+                    </tr> 
+                    <tr class="table table-borderless">
+                        <td><b> Representative at site during inspection: </b><span t-esc="doc.site_representative.name"/></td> 
+                        <td></td>  
+                    </tr> 
+                    </t>     
+                </table>
+                <h5><b><u>Scope of Work</u></b></h5><br />
+                <table class="table table-condensed" style="width:100%; font-size:12px; border:1px solid black">
+                    <tr style="border:1px solid black">
+                        <th style="width:50%; border:1px solid black"> Work Scope </th>
+                        <th style="width:50%; border:1px solid black"> Description </th>
+                    </tr>
+                    <t t-set="i" t-value="0"/>
+                        <t t-foreach="docs.work_scope" t-as="l">
+                            <t t-if="i &gt;= 0">
+                                <tr style="border:1px solid black">
+                        
+                                    <td style="border:1px solid black"><span t-esc="docs.work_scope[i].name"/></td>
+                                    <td style="border:1px solid black"><span t-esc="docs.work_scope[i].description"/></td>   
+                                </tr>
+                                <t t-set="i" t-value="i+1"/>
+                            </t>
+                        </t>
+                   
+                </table>
+                <h5><b><u>Man Power</u></b></h5><br />
+                <table class="table table-condensed" style="width:100%; font-size:12px; border:1px solid black">
+                    <t t-foreach="docs" t-as="doc">
+                    <tr style="border:1px solid black">
+                        <td style="width:50%; border:1px solid black"><b> Foreman </b><span t-esc="doc.foreman"/></td>  
+                        <td style="width:50%; border:1px solid black"><b> Leadman </b><span t-esc="doc.leadman"/></td>     
+                    </tr> 
+                    <tr style="border:1px solid black">
+                        <td style="width:50%; border:1px solid black"><b> Tinsmith </b><span t-esc="doc.tinsmith"/></td>  
+                        <td style="width:50%; border:1px solid black"><b> Installer </b><span t-esc="doc.installer"/></td>     
+                    </tr>   
+                    <tr style="border:1px solid black">
+                        <td style="width:50%; border:1px solid black"><b> Welder </b><span t-esc="doc.welder"/></td>  
+                        <td style="width:50%; border:1px solid black"><b> Helper </b><span t-esc="doc.helper"/></td>     
+                    </tr>   
+                    </t>     
+                </table>
+                    
+                    <h5><b><u>Tools And Equipments</u></b></h5>
+                    <table class="table table-condensed" style="width:100%; font-size:12px; border:1px solid black">
+                            <tr style="border:1px solid black">
+                                <th style="width:50%; border:1px solid black"> Material </th>
+                                <th style="width:50%; border:1px solid black"> Description </th>
+                            </tr>
+
+                            <t t-set="i" t-value="0"/>
+                        <t t-foreach="docs.tool_equipment" t-as="l">
+                            <t t-if="i &gt;= 0">
+                                <tr style="border:1px solid black">
+                        
+                                    <td style="border:1px solid black"><span t-esc="docs.tool_equipment[i].name"/></td>
+                                    <td style="border:1px solid black"><span t-esc="docs.tool_equipment[i].description"/></td>   
+                                </tr>
+                                <t t-set="i" t-value="i+1"/>
+                            </t>
+                        </t>
+
+                    </table>
+                    <h5><b><u>Activities</u></b></h5>
+                    <table class="table table-condensed" style="width:100%; font-size:12px; border:1px solid black">
+                            <tr style="border:1px solid black">
+                                <th style="width:50%; border:1px solid black"> Activity </th>
+                                <th style="width:50%; border:1px solid black"> Status </th>
+                            </tr>
+
+                             <t t-set="i" t-value="0"/>
+                        <t t-foreach="docs.activity" t-as="l">
+                            <t t-if="i &gt;= 0">
+                                <tr style="border:1px solid black">
+                        
+                                    <td style="border:1px solid black"><span t-esc="docs.activity[i].name"/></td>
+                                    <td style="border:1px solid black"><span t-esc="docs.activity[i].status"/></td>   
+                                </tr>
+                                <t t-set="i" t-value="i+1"/>
+                            </t>
+                        </t>
+                    </table>
+                    <h5><b><u>Materials Installed</u></b></h5>
+                    <table class="table table-condensed" style="width:100%; font-size:12px; border:1px solid black">
+                            <tr style="border:1px solid black">
+                                <th style="width:50%; border:1px solid black"> Material </th>
+                                <th style="width:50%; border:1px solid black"> Quantity </th>
+                            </tr>
+
+                            <t t-set="i" t-value="0"/>
+                        <t t-foreach="docs.material" t-as="l">
+                            <t t-if="i &gt;= 0">
+                                <tr style="border:1px solid black">
+                        
+                                    <td style="border:1px solid black"><span t-esc="docs.material[i].name.name"/></td>
+                                    <td style="border:1px solid black"><span t-esc="docs.material[i].quantity_installed"/></td>   
+                                </tr>
+                                <t t-set="i" t-value="i+1"/>
+                            </t>
+                        </t>
+                        
+                    </table>
+                    <h5><b><u>Other Concern</u></b></h5>
+                <table style="width:100%; font-size:12px; border:1px solid black">
+                  
+                    <t t-foreach="docs" t-as="doc">
+                    <tr style="border:1px solid black">
+                        <td style="width:95%; border:1px solid black"><t t-esc="doc.other_concerns"/></td>
+                        <td style="border:1px solid black"></td>
+                    </tr> 
+                    </t>     
+                </table><br />
+                <table  class="table table-bordered" style="width:100%; font-size:12px;">
+                    
+                    <t t-foreach="docs" t-as="doc">
+                    <tr>
+                        <td><b> Prepared By</b><span t-esc="doc.prepared_by.name"/></td>
+                        <td><b> Noted By </b><span t-esc="doc.approved_by.name"/></td>
+                    </tr>
+                    </t>     
+                </table>
+                
+                <!-- 
+                <table  class="table table-bordered" style="font-size:12px">
+                    <tr>
+                        <th> Member's Name </th>
+                        <th> Attendance Date and Time </th>
+                        <th> Type of Breakfast</th>
+                    </tr>
+                    <t t-foreach="docs" t-as="doc">
+                    <tr>
+                        <td><t t-esc="doc.name.name"/></td>
+                        <td><t t-esc="doc.datetime_breakfast"/></td>
+                        <td><t t-esc="doc.type_breakfast"/></td>    
+                               
+                    </tr>  
+                    </t>     
+                </table> -->
+            </div>
+</template>
+</odoo>
